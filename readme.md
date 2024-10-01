@@ -1,36 +1,34 @@
-# Quantum Mechanical Keyboard Firmware
+# nuphy-qmk-firmware
 
-[![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
-[![Discord](https://img.shields.io/discord/440868230475677696.svg)](https://discord.gg/qmk)
-[![Docs Status](https://img.shields.io/badge/docs-ready-orange.svg)](https://docs.qmk.fm)
-[![GitHub contributors](https://img.shields.io/github/contributors/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/pulse/monthly)
-[![GitHub forks](https://img.shields.io/github/forks/qmk/qmk_firmware.svg?style=social&label=Fork)](https://github.com/qmk/qmk_firmware/)
+Updated version of NuPhy's QMK firmware with my own changes:
 
-This is a keyboard firmware based on the [tmk\_keyboard firmware](https://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR and ARM controllers, and more specifically, the [OLKB product line](https://olkb.com), the [ErgoDox EZ](https://ergodox-ez.com) keyboard, and the Clueboard product line.
+* Increased debounce time (to avoid double key presses)
+* Slightly changed key map:
+  * Caps Lock changed to Ctrl
+  * Caps Lock now is activated by pressing both shift keys at the same time ([Caps Word](https://docs.qmk.fm/features/caps_word))
+  * Microphone mute button on F13
+  * Some minor tweaks from the original, mostly to get back to normal TKL layout
 
-## Documentation
+To build:
 
-* [See the official documentation on docs.qmk.fm](https://docs.qmk.fm)
+1. Clone repo and [install QMK](https://docs.qmk.fm/newbs_getting_started)
+1. Install submodules:
 
-The docs are powered by [VitePress](https://vitepress.dev/). They are also viewable offline; see [Previewing the Documentation](https://docs.qmk.fm/#/contributing?id=previewing-the-documentation) for more details.
+        git submodule update --force --recursive --init --remote
 
-You can request changes by making a fork and opening a [pull request](https://github.com/qmk/qmk_firmware/pulls).
+1. Fix header reference in `lib/chibios/os/rt/include/ch.h` r125:
 
-## Supported Keyboards
+        -#include "chlib.h"
+        +#include "../oslib/include/chlib.h"
 
-* [Planck](/keyboards/planck/)
-* [Preonic](/keyboards/preonic/)
-* [ErgoDox EZ](/keyboards/ergodox_ez/)
-* [Clueboard](/keyboards/clueboard/)
-* [Cluepad](/keyboards/clueboard/17/)
-* [Atreus](/keyboards/atreus/)
+1. Set QMK home dir:
 
-The project also includes community support for [lots of other keyboards](/keyboards/).
+        qmk config user.qmk_home="/home/mtak/dev/nuphy-qmk-firmware"
 
-## Maintainers
+1. Build:
 
-QMK is developed and maintained by Jack Humbert of OLKB with contributions from the community, and of course, [Hasu](https://github.com/tmk). The OLKB product firmwares are maintained by [Jack Humbert](https://github.com/jackhumbert), the Ergodox EZ by [ZSA Technology Labs](https://github.com/zsa), the Clueboard by [Zach White](https://github.com/skullydazed), and the Atreus by [Phil Hagelberg](https://github.com/technomancy).
+        qmk compile -kb nuphy/gem80/ansi -km mtak
 
-## Official Website
+1. Flash (unplug keyboard, hold Esc, plug back in):
 
-[qmk.fm](https://qmk.fm) is the official website of QMK, where you can find links to this page, the documentation, and the keyboards supported by QMK.
+        qmk flash -kb nuphy/gem80/ansi -km mtak

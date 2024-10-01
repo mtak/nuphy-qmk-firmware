@@ -71,6 +71,8 @@ enum custom_keycodes {
     SOCDOFF,
     SOCDTOG,
     FW_VERSION,
+
+    MTAK_MIC_MUTE,
 };
 
 #define MAC_PRT G(S(KC_3))

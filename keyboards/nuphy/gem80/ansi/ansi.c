@@ -441,6 +441,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING(CFW_VERSION);
             }
             return false;
+        case MTAK_MIC_MUTE:
+            if (record->event.pressed) {
+                tap_code16(RSG(KC_M));
+            }
+            return false;
 
         default:
             return true;
