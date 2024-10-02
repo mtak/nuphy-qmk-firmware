@@ -81,8 +81,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_SPI_USE_CIRCULAR_BUFFER
 
 // debounce override - for clangd compliance - info_json.h - doesn't work most of the times
-#define DEBOUNCE 15 
-#define RELEASE_DEBOUNCE (DEBOUNCE)
+#define DEBOUNCE 10 
+#define RELEASE_DEBOUNCE (15)
 // use dedicated timer for wait_us interrupts instead on ChibiOS defaulting to minimum 100us even if you sleep for 10us
 #define WAIT_US_TIMER GPTD14
 
